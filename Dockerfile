@@ -2,7 +2,7 @@
 FROM node:14.17-alpine as build
 
 # 작업 디렉토리를 설정합니다.
-WORKDIR /app/src/main/webapp/front
+WORKDIR /src/main/webapp/front
 
 # 종속성 설치를 위해 package.json과 package-lock.json 파일을 복사합니다.
 COPY package*.json ./
