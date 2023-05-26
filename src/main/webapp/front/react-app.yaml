@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-spring-page
+  labels:
+    run: react-spring-page
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-spring-page
+  template:
+    metadata:
+      labels:
+        app: react-spring-page
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - image: bit-registry.kr.ncr.ntruss.com/react-day01:latest
+        name: react-spring-page
+        ports:
+          - containerPort: 80
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "web-react-spring"
+spec:
+  type: LoadBalancer
+  ports:
+    - nodePort: 31001
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: react-spring-page
